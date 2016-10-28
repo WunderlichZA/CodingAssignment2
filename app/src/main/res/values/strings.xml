@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CodingAssignment</string>
+    <string name="no_internet_connection">No internet connection.\nCheck your network settings</string>
+    <string name="cannot_load_data">Cannot load data.</string>
+</resources>
