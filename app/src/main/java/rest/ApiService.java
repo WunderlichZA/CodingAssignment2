@@ -1,6 +1,9 @@
 package rest;
 
+import java.util.List;
+
 import app.Versions;
+import model.AndroidVersion;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -16,5 +19,5 @@ public interface ApiService {
     */
 
     @GET("/androids.json")
-    Call<Versions> getVersionsJSON();
+    Call<List<AndroidVersion>> getVersions();
 }
