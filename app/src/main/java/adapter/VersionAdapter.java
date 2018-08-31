@@ -1,13 +1,11 @@
 package adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -15,10 +13,10 @@ import com.cobi.codingassignment.R;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import model.AndroidVersion;
 import rest.RetroClient;
+
+import com.cobi.codingassignment.databinding.ListItemBinding;
 
 /**
  * Created by student13 on 10/26/2016.
@@ -38,8 +36,9 @@ public class VersionAdapter extends RecyclerView.Adapter<VersionAdapter.VersionV
 
     @Override
     public VersionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        VersionViewHolder viewHolder = new VersionViewHolder(view);
+        ListItemBinding binding =
+                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),rowLayout, parent, false);
+        VersionViewHolder viewHolder = new VersionViewHolder(binding);
         return viewHolder;
     }
 
@@ -47,14 +46,11 @@ public class VersionAdapter extends RecyclerView.Adapter<VersionAdapter.VersionV
     public void onBindViewHolder(VersionViewHolder holder, int position) {
 
         AndroidVersion version = versions.get(position);
-        holder.mName.setText(version.getName());
-        //holder.mImage.setImageResource(Integer.parseInt(versions.get(position).getImage()));
         Glide.with(context)
                 .load(RetroClient.ROOT_URL + "/" +  version.getImage())
-                .placeholder(R.mipmap.placeholder)
-                .error(R.mipmap.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(holder.mImage);
+                .into(holder.itemBinding.image);
+        holder.itemBinding.setVersion(version);
+        holder.itemBinding.executePendingBindings();
     }
 
     @Override
@@ -67,13 +63,12 @@ public class VersionAdapter extends RecyclerView.Adapter<VersionAdapter.VersionV
     }
 
     public static class VersionViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.image) ImageView mImage;
-        @BindView(R.id.name) TextView mName;
 
-        public VersionViewHolder(View v) {
-            super(v);
-            // bind views
-            ButterKnife.bind(this, v);
+        ListItemBinding itemBinding;
+
+        public VersionViewHolder(ListItemBinding binding) {
+            super(binding.getRoot());
+            itemBinding = binding;
         }
     }
 }
