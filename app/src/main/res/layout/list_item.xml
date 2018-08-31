@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground"
-    android:clickable="true">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="@dimen/small_image_width"
-        android:layout_height="@dimen/small_image_height"
-        android:src="@mipmap/placeholder"/>
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <data>
+        <variable
+            name="version"
+            type="model.AndroidVersion"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/image"
-        android:layout_marginLeft="@dimen/margin_16dp"
-        android:textColor="@android:color/black"/>
+        android:background="?android:selectableItemBackground"
+        android:clickable="true">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/small_image_width"
+            android:layout_height="@dimen/small_image_height"
+            android:src="@mipmap/placeholder"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{version.name}"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/image"
+            android:layout_marginLeft="@dimen/margin_16dp"
+            android:textColor="@android:color/black"/>
+
+    </RelativeLayout>
+</layout>
